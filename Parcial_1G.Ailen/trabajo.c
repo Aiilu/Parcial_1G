@@ -18,7 +18,7 @@ void harcodeTrabajos(eTrabajo tra[], int tamTra)
         {6, "QSZ435", 20001, {21,7,2019}, 1},
         {7, "LGX201", 20001, {29,8,2019}, 1},
         {8, "SUZ324", 20004, {31,5,2019}, 1},
-        {9, "HCU762", 20004, {2,2,2019}, 1},
+        {9, "HCU762", 20004, {2,2,2019}, 0},
         {10, "DYC735", 20000, {18,2,2019}, 1},
         {11, "JJK879", 20001, {17,3,2019}, 1},
         {12, "AAA201", 20000, {17,4,2019}, 1},
@@ -29,7 +29,7 @@ void harcodeTrabajos(eTrabajo tra[], int tamTra)
         {17, "QSZ435", 20001, {3,7,2019}, 1},
         {18, "LGX201", 20001, {21,8,2019}, 1},
         {19, "SUZ324", 20004, {28,5,2019}, 1},
-        {20, "HCU762", 20004, {2,8,2019}, 1},
+        {20, "HCU762", 20004, {2,8,2019}, 0},
         {21, "DYC735", 20000, {8,2,2019}, 1},
         {22, "JJK879", 20001, {17,3,2019}, 1},
         {23, "KOD220", 20003, {17,4,2019}, 1},
@@ -315,9 +315,11 @@ void menuInformes(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca ma
             break;
 
         case 4:
+            autosSinTrabajo(tra,tamTra,aut,tamAut,mar,tamMar,col,tamCol,serv,tamServ,cli,tamCli);
             break;
 
         case 5:
+            importesXauto(tra,tamTra,aut,tamAut,mar,tamMar,col,tamCol,serv,tamServ,cli,tamCli);
             break;
 
         case 6:
@@ -329,11 +331,11 @@ void menuInformes(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca ma
             break;
 
         case 8:
-
+            autosEncerados(tra,tamTra,aut,tamAut,mar,tamMar,col,tamCol,serv,tamServ,cli,tamCli);
             break;
 
         case 9:
-
+            trabajosAutosBlancos(tra,tamTra,aut,tamAut,mar,tamMar,col,tamCol,serv,tamServ,cli,tamCli);
             break;
 
         case 10:
@@ -485,6 +487,40 @@ void autosSinTrabajo(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca
 }
 
 
+void importesXauto(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], int tamCol, eServicio serv[], int tamServ, eCliente cli[], int tamCli)
+{
+    int total = 0;
+    char patente[6];
+
+    mostrarAutos(aut,tamAut,mar,tamMar,col,tamCol,cli,tamCli);
+
+    printf("Ingrese Patente: ");
+    fflush(stdin);
+    gets(patente);
+
+    for(int i=0; i<tamTra; i++)
+    {
+
+        if(stricmp(tra[i].patente,patente) == 0 && tra[i].ocupado == OCUPADO)
+        {
+
+            for(int j=0; j<tamServ; j++)
+            {
+                if(serv[j].id == tra[i].idServicio)
+                {
+                    total+=serv[j].precio;
+                    break;
+                }
+            }
+        }
+    }
+
+
+    printf("Total recaudado: %d\n",total);
+
+}
+
+
 void servicioMasPedido(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], int tamCol, eServicio serv[], int tamServ, eCliente cli[], int tamCli)
 {
     int cont[tamServ];
@@ -616,3 +652,44 @@ void trabajosXfecha(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca 
         printf("No hay trabajos en esta fecha\n");
     }
 }
+
+
+void autosEncerados(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], int tamCol, eServicio serv[], int tamServ, eCliente cli[], int tamCli)
+{
+    for(int i=0; i<tamTra; i++)
+    {
+        for(int j=0; j<tamAut; j++)
+        {
+            if(aut[j].ocupado == OCUPADO && tra[i].ocupado == OCUPADO && strcmp(tra[i].patente, aut[j].patente)==0)
+            {
+                for(int k=0; k<tamServ; k++)
+                {
+                    if(tra[i].idServicio == 20003)
+                    {
+                        printf("%s  %0d/%0d/%d\n",aut[j].patente,tra[i].fechaTrabajo.dia,tra[i].fechaTrabajo.mes,tra[i].fechaTrabajo.anio);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void trabajosAutosBlancos(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], int tamCol, eServicio serv[], int tamServ, eCliente cli[], int tamCli)
+{
+    for(int i=0; i<tamAut; i++)
+    {
+        if(aut[i].ocupado == OCUPADO && aut[i].idColor == 5001)
+        {
+            for(int j=0; j<tamTra; j++)
+            {
+                if(tra[j].ocupado == OCUPADO && strcmp(aut[i].patente,tra[j].patente)==0)
+                {
+                    mostrarTrabajo(tra[i],aut,tamAut,mar,tamMar,col,tamCol,serv,tamServ);
+                    break;
+                }
+            }
+        }
+    }
+}
+
