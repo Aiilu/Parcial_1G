@@ -33,7 +33,7 @@ typedef struct
 typedef struct
 {
     int id;
-    char patente[6];
+    char patente[7];
     int idServicio;
     eFecha fechaTrabajo;
     int ocupado;

@@ -117,7 +117,7 @@ int buscarPatente(eAuto aut[], int tamAut, int idPatente[])
 
 void altaAutos(eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], int tamCol, eCliente cli[], int tamCli)
 {
-    char patente[6];
+    char patente[7];
     int idMarca;
     char valMarca[4];
     int idColor;
@@ -295,7 +295,7 @@ void mostrarAutos(eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[
 void bajaAuto(eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], int tamCol, eCliente cli[], int tamCli)
 {
 
-    char patente[6];
+    char patente[7];
     char seguir;
     int esta;
 
@@ -343,7 +343,7 @@ void bajaAuto(eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], i
 void ModificacionAuto(eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], int tamCol, eCliente cli[], int tamCli)
 {
 
-    char patente[6];
+    char patente[7];
     int idColor;
     char valColor[4];
     int idModelo;

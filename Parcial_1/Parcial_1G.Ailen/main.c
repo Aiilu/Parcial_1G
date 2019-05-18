@@ -10,6 +10,7 @@
 #include "trabajo.h"
 #include "validaciones.h"
 #include "cliente.h"
+#include "informes.h"
 
 #define VACIO 0
 #define OCUPADO 1
@@ -24,6 +25,7 @@
 int main()
 {
     char seguir = 's';
+
     //int flagAuto = 0;
     //int flagTrabajo = 0;
     //int flagNoTrabajo = 0;
@@ -78,7 +80,7 @@ int main()
 
         case 5:
             system("cls");
-            printf("LISTA MARCAS\n");
+            printf("   LISTA MARCAS\n");
             listarMarcas(marca,MAR);
             system("pause");
             break;
@@ -86,7 +88,7 @@ int main()
 
         case 6:
             system("cls");
-            printf("LISTA COLORES\n");
+            printf("   LISTA COLORES\n");
             listarColores(color,COL);
             system("pause");
             break;
@@ -94,7 +96,7 @@ int main()
 
         case 7:
             system("cls");
-            printf("LISTA SERVICIOS\n");
+            printf("   LISTA SERVICIOS\n");
             listarServicios(servicio,SERV);
             system("pause");
             break;
@@ -116,7 +118,7 @@ int main()
             system("pause");
             break;
 
-            case 11:
+        case 11:
             system("cls");
             printf("Hasta luego");
             seguir = 'n';
