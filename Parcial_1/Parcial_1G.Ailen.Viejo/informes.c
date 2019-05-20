@@ -194,7 +194,6 @@ void trabajosXauto(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca m
                     {
                         mostrarTrabajo(tra[i],aut,tamAut,mar,tamMar,col,tamCol,serv,tamServ);
                         flag = 1;
-                        break;
                     }
                 }
             }
@@ -209,12 +208,10 @@ void trabajosXauto(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca m
 
 }
 
-//PREGUNTAR X SERVICIO 2004
+//PREGUNTAR X PATENTE HCU762
 void autosSinTrabajo(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], int tamCol, eServicio serv[], int tamServ, eCliente cli[], int tamCli)
 {
     int flag;
-
-    printf("Autos que no tuvieron trabajos: \n");
 
     for(int i=0; i<tamAut; i++)
     {
@@ -237,20 +234,19 @@ void autosSinTrabajo(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca
 
         if(flag == 0 && aut[i].ocupado == OCUPADO)
         {
+            printf("Autos que no tuvieron trabajos\n");
 
             mostrarAuto(aut[i],mar,tamMar,col,tamCol,cli,tamCli);
 
         }
 
-
     }
-
 
     if(flag == 1)
     {
         printf("Todos tienen algun servicio\n");
-
     }
+
 }
 
 
@@ -504,81 +500,41 @@ void trabajosXfecha(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca 
 
 void autosEncerados(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], int tamCol, eServicio serv[], int tamServ, eCliente cli[], int tamCli)
 {
-    char descripcion[20];
-    int flag = 0;
-
-    listarServicios(serv,tamServ);
-
-    printf("Ingrese la descripcion del servicio a buscar: ");
-    fflush(stdin);
-    gets(descripcion);
-
-    validarStringTam(descripcion,20);
-
-    printf("\n\n");
-
     for(int i=0; i<tamTra; i++)
     {
         for(int j=0; j<tamAut; j++)
         {
-            if(tra[i].ocupado == OCUPADO && aut[j].ocupado == OCUPADO && strcmp(tra[i].patente,aut[j].patente) == 0)
+            if(aut[j].ocupado == OCUPADO && tra[i].ocupado == OCUPADO && strcmp(tra[i].patente, aut[j].patente)==0)
             {
                 for(int k=0; k<tamServ; k++)
                 {
-                    if(stricmp(serv[k].descripcion,descripcion) == 0 && tra[i].idServicio == serv[k].id)
+                    if(tra[i].idServicio == 20003)
                     {
-                        printf("%s %d/%d/%d\n",aut[j].patente, tra[i].fechaTrabajo.dia, tra[i].fechaTrabajo.mes, tra[i].fechaTrabajo.anio);
-                        flag = 1;
-
+                        printf("%s  %0d/%0d/%d\n",aut[j].patente,tra[i].fechaTrabajo.dia,tra[i].fechaTrabajo.mes,tra[i].fechaTrabajo.anio);
                         break;
                     }
                 }
             }
         }
-    }
-
-    if(flag == 0)
-    {
-        printf("No hay ningun auto para el servicio %s\n",descripcion);
     }
 }
 
 
 void trabajosAutosBlancos(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca mar[], int tamMar, eColor col[], int tamCol, eServicio serv[], int tamServ, eCliente cli[], int tamCli)
 {
-    char descripcion[20];
-    int flag = 0;
-
-    listarColores(col,tamCol);
-
-    printf("Ingrese la descripcion del color a buscar: ");
-    fflush(stdin);
-    gets(descripcion);
-
-    validarStringTam(descripcion,20);
-
     for(int i=0; i<tamAut; i++)
     {
-        for(int j=0; j<tamCol; j++)
+        if(aut[i].ocupado == OCUPADO && aut[i].idColor == 5001)
         {
-            if(aut[i].ocupado == OCUPADO && stricmp(col[j].nombreColor,descripcion) == 0 && aut[i].idColor == col[j].id)
+            for(int j=0; j<tamTra; j++)
             {
-                for(int k=0; k<tamTra; k++)
+                if(tra[j].ocupado == OCUPADO && strcmp(aut[i].patente,tra[j].patente)==0)
                 {
-                    if(tra[k].ocupado == OCUPADO && strcmp(aut[i].patente,tra[k].patente)==0)
-                    {
-                        mostrarTrabajo(tra[k],aut,tamAut,mar,tamMar,col,tamCol,serv,tamServ);
-                        flag = 1;
-                        break;
-                    }
+                    mostrarTrabajo(tra[i],aut,tamAut,mar,tamMar,col,tamCol,serv,tamServ);
+                    break;
                 }
             }
         }
-    }
-
-    if(flag == 0)
-    {
-        printf("No hay trabajos con autos color %s\n",descripcion);
     }
 }
 
@@ -587,29 +543,23 @@ void importeXpulido(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca 
 {
     int flag = 0;
     int total = 0;
-    char descripcion[20];
-
-    listarServicios(serv,tamServ);
-
-    printf("Ingrese la descripcion del servicio a buscar: ");
-    fflush(stdin);
-    gets(descripcion);
-
-    validarStringTam(descripcion,20);
 
     for(int i=0; i<tamTra; i++)
     {
-        for(int j=0; j<tamServ; j++)
+        if(tra[i].idServicio == 20001)
         {
-            if(stricmp(serv[j].descripcion,descripcion) == 0 && tra[i].idServicio == serv[j].id && tra[i].ocupado == OCUPADO)
+            for(int j=0; j<tamAut; j++)
             {
-                for(int k=0; k<tamAut; k++)
+                if(aut[j].ocupado == OCUPADO && strcmp(tra[i].patente,aut[j].patente) == 0 && tra[i].ocupado == OCUPADO)
                 {
-                    if(aut[k].ocupado == OCUPADO && strcmp(tra[i].patente,aut[k].patente) == 0)
+                    for(int k=0; k<tamServ; k++)
                     {
-                        total+=serv[j].precio;
-                        flag = 1;
-                        break;
+                        if(serv[k].id == tra[i].idServicio)
+                        {
+                            total+=serv[k].precio;
+                            flag = 1;
+                            break;
+                        }
                     }
                 }
             }
@@ -619,11 +569,11 @@ void importeXpulido(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca 
 
     if(flag == 0)
     {
-        printf("No hay trabajos con este servicio\n");
+        printf("No hay trabajos de pulido\n");
     }
     else
     {
-        printf("Total acumulado x servicio %s: %d\n",descripcion,total);
+        printf("Total acumulado x pulidos: %d\n",total);
     }
 }
 
@@ -633,35 +583,20 @@ void marcasConMasLavadosCompletos(eTrabajo tra[], int tamTra, eAuto aut[], int t
     int cont[tamMar];
     int flag = 0;
     int mayor;
-    char descripcion[20];
-
-    listarServicios(serv,tamServ);
-
-    printf("Ingrese la descripcion del servicio a buscar: ");
-    fflush(stdin);
-    gets(descripcion);
-
-    validarStringTam(descripcion,20);
 
     for(int i=0; i<tamMar; i++)
     {
         cont[i] = 0;
 
-        for(int j=0; j<tamAut; j++)
+        for(int j=0; j<tamTra; j++)
         {
-            if(aut[j].idMarca == mar[i].id && aut[j].ocupado == OCUPADO)
+            if(tra[j].idServicio == 20003)
             {
-                for(int k=0; k<tamTra; k++)
+                for(int k=0; k<tamAut; k++)
                 {
-                    if(strcmp(aut[j].patente,tra[k].patente) == 0 && tra[k].ocupado == OCUPADO)
+                    if(strcmp(tra[j].patente,aut[k].patente)==0 && mar[i].id == aut[k].idMarca)
                     {
-                        for(int h=0; h<tamServ; h++)
-                        {
-                            if(stricmp(serv[h].descripcion,descripcion)==0 && tra[k].idServicio == serv[h].id)
-                            {
-                                cont[i]++;
-                            }
-                        }
+                        cont[i]++;
                     }
                 }
             }
@@ -680,7 +615,7 @@ void marcasConMasLavadosCompletos(eTrabajo tra[], int tamTra, eAuto aut[], int t
     }
 
 
-    printf("Marca con + servicio %s:\n",descripcion);
+    printf("Marca con + lavados completos:\n");
 
 
     for(int i=0; i<tamMar; i++)

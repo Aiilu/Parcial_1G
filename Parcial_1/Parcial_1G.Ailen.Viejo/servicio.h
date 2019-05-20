@@ -13,7 +13,7 @@
 #define TAM 24
 #define MAR 5
 #define COL 5
-#define SERV 5
+#define SERV 4
 #define TRA 38
 #define CLI 6
 

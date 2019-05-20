@@ -214,8 +214,6 @@ void autosSinTrabajo(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca
 {
     int flag;
 
-    printf("Autos que no tuvieron trabajos: \n");
-
     for(int i=0; i<tamAut; i++)
     {
         flag = 0;
@@ -235,22 +233,27 @@ void autosSinTrabajo(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca
             }
         }
 
-        if(flag == 0 && aut[i].ocupado == OCUPADO)
+    }
+
+     printf("Autos que no tuvieron trabajos\n");
+
+     for(int i=0; i<tamAut; i++)
+     {
+      if(flag == 0 && aut[i].ocupado == OCUPADO)
         {
 
             mostrarAuto(aut[i],mar,tamMar,col,tamCol,cli,tamCli);
 
         }
 
-
-    }
-
-
-    if(flag == 1)
+    else
     {
         printf("Todos tienen algun servicio\n");
 
+        break;
     }
+
+     }
 }
 
 
@@ -509,11 +512,9 @@ void autosEncerados(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca 
 
     listarServicios(serv,tamServ);
 
-    printf("Ingrese la descripcion del servicio a buscar: ");
+    printf("Ingrese servicio a buscar: ");
     fflush(stdin);
     gets(descripcion);
-
-    validarStringTam(descripcion,20);
 
     printf("\n\n");
 
@@ -551,11 +552,9 @@ void trabajosAutosBlancos(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, e
 
     listarColores(col,tamCol);
 
-    printf("Ingrese la descripcion del color a buscar: ");
+    printf("Ingrese color a buscar: ");
     fflush(stdin);
     gets(descripcion);
-
-    validarStringTam(descripcion,20);
 
     for(int i=0; i<tamAut; i++)
     {
@@ -591,11 +590,9 @@ void importeXpulido(eTrabajo tra[], int tamTra, eAuto aut[], int tamAut, eMarca 
 
     listarServicios(serv,tamServ);
 
-    printf("Ingrese la descripcion del servicio a buscar: ");
+    printf("Ingrese servicio a buscar: ");
     fflush(stdin);
     gets(descripcion);
-
-    validarStringTam(descripcion,20);
 
     for(int i=0; i<tamTra; i++)
     {
@@ -637,11 +634,9 @@ void marcasConMasLavadosCompletos(eTrabajo tra[], int tamTra, eAuto aut[], int t
 
     listarServicios(serv,tamServ);
 
-    printf("Ingrese la descripcion del servicio a buscar: ");
+    printf("Ingrese el servicio a buscar: ");
     fflush(stdin);
     gets(descripcion);
-
-    validarStringTam(descripcion,20);
 
     for(int i=0; i<tamMar; i++)
     {

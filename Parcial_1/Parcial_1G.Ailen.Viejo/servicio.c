@@ -8,8 +8,7 @@ void harcodeServicios(eServicio serv[], int tamServ)
         {20000, "Lavado",250},
         {20001, "Pulido",300},
         {20002, "Encerado",400},
-        {20003, "Completo",600},
-        {20004, "Teflonado", 800}
+        {20003, "Completo",600}
 
     };
 
